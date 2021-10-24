@@ -1,0 +1,20 @@
+Edificio: Construcción conformada por un conjunto departamentos para vivienda.
+
+Depto: Recinto cerrado de dimensiones definidas destinado para la vivienda dentro de un edificio.
+
+Pago GG Depto: Registro de información de pago/transacción de gastos comunes de un departamento.
+
+Gasto Común: Registro del conjunto de gastos de un departamento.
+
+Tipo GG: Registro de gastos asociados a un departamento dependiendo del tipo.
+
+Tipo Depto: Clasificación de departamentos.
+
+Comuna: Separación geográfica de ciudad o territorio.
+
+Administrador: Encargado de un edificio.
+
+Gasto Edificio: Gastos asociados al edificio.
+
+Pago Gasto Edificio: Información de pago de costos de edificio.
+
