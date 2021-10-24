@@ -47,6 +47,21 @@ FROM DEPTO AS d, TIPO_DEPTO AS td, EDIFICIO AS e
 WHERE d.id_tipo_depto = td.id_tipo_depto AND d.id_edificio = e.id_edificio
 GROUP BY d.id_edificio, td.id_tipo_depto;
 
+--9
+
+SELECT DISTINCT ON (mes, anio)
+    *
+FROM(SELECT 
+    EXTRACT (MONTH FROM pge.fecha_emision) AS mes,
+    EXTRACT (YEAR FROM pge.fecha_emision) AS anio,
+    e.nombre_edificio AS nombre,
+    SUM(ge.monto) AS total
+    FROM edificio AS e, pago_gasto_edificio AS pge, gasto_edificio as ge
+    WHERE e.id_edificio=pge.id_edificio AND pge.id_gasto_edificio=ge.id_gasto_edificio
+    GROUP BY mes, anio, e.id_edificio
+    ORDER BY mes, anio, total) AS Gastos_Mensuales
+ORDER BY anio, mes;
+
 --10
 SELECT DISTINCT ON (id_edificio)
 	*
