@@ -24,15 +24,28 @@ LIMIT 1;
 
 --5
 SELECT EDIFICIO.ID_EDIFICIO, EDIFICIO.NOMBRE_EDIFICIO, EDIFICIO.ID_COMUNA, COMUNA.NOMBRE_COMUNA, T.CANTIDAD_DEPTOS
-FROM COMUNA, EDIFICIO, (select ID_EDIFICIO, count(ID_EDIFICIO) as CANTIDAD_DEPTOS
-from DEPTO
-group by ID_EDIFICIO) AS T
+FROM COMUNA, EDIFICIO, (SELECT ID_EDIFICIO, COUNT(ID_EDIFICIO) AS CANTIDAD_DEPTOS
+FROM DEPTO
+GROUP BY ID_EDIFICIO) AS T
 WHERE T.ID_EDIFICIO = EDIFICIO.ID_EDIFICIO AND EDIFICIO.ID_COMUNA = COMUNA.ID_COMUNA;
+
+--6
+SELECT ad.id_administrador, ad.nombre_administrador, count(*) FROM administrador AS ad, edificio AS ed
+WHERE ad.id_administrador = ed.id_administrador 
+GROUP BY ad.id_administrador 
+ORDER BY count(*) DESC
+FETCH FIRST 1 ROW ONLY;
 
 --7
 SELECT d.id_edificio, d.piso, MAX(d.habitantes) AS habitantes
 FROM depto AS d
 GROUP BY d.id_edificio, d.piso;
+
+--8
+SELECT d.id_edificio, td.id_tipo_depto, COUNT(*) AS total_deptos
+FROM DEPTO AS d, TIPO_DEPTO AS td, EDIFICIO AS e
+WHERE d.id_tipo_depto = td.id_tipo_depto AND d.id_edificio = e.id_edificio
+GROUP BY d.id_edificio, td.id_tipo_depto;
 
 --10
 SELECT DISTINCT ON (id_edificio)
@@ -42,6 +55,6 @@ FROM
 	FROM edificio AS ed, depto, tipo_depto AS tpd
 	WHERE ed.id_edificio = depto.id_edificio AND depto.id_tipo_depto = tpd.id_tipo_depto
 	GROUP BY depto.id_edificio, depto.id_tipo_depto
-	ORDER BY id_edificio) as listatipos
+	ORDER BY id_edificio) AS listatipos
 	GROUP BY id_edificio, id_tipo_depto, minimo
 	ORDER BY id_edificio;
