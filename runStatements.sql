@@ -1,6 +1,6 @@
 --1
-select * from pago_gg_depto
-where morosidad = false and fecha_emision > Current_Date - interval '3 months';
+SELECT * FROM pago_gg_depto
+WHERE morosidad = false AND fecha_emision > Current_Date - interval '3 months';
 
 --2
 SELECT e.id_edificio,EXTRACT(MONTH FROM pgd.fecha_emision) AS mes,SUM(gc.monto) as Total_gasto_comun
@@ -15,6 +15,6 @@ WHERE e.id_edificio=pge.id_edificio AND pge.id_gasto_edificio=ge.id_gasto_edific
 GROUP BY mes, e.id_edificio;
 
 --7
-select d.id_edificio, d.piso, MAX(d.habitantes) AS habitantes
-From depto as d
-group by d.id_edificio, d.piso;
+SELECT d.id_edificio, d.piso, MAX(d.habitantes) AS habitantes
+FROM depto AS d
+GROUP BY d.id_edificio, d.piso;
